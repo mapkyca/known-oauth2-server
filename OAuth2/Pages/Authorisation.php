@@ -19,6 +19,9 @@ namespace IdnoPlugins\OAuth2\Pages {
 		    
 		    switch ($response_type) {
 			
+			case 'token': throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, implicit grant is currently not supported.", 'unsupported_response_type', $state); 
+			    break;
+			
 			case 'code':
 			default:
 			    // Generate code
