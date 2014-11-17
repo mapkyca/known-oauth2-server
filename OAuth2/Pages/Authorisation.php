@@ -28,6 +28,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    $code->scope = $scope;
 			    $code->client_id = $client_id;
 			    $code->state = $state;
+			    $code->redirect_uri = $redirect_uri;
 			    
 			    // Check Application
 			    if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
