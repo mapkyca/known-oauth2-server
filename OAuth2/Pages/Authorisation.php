@@ -41,6 +41,18 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    if ($code->getOne(['code' => $code]))
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, this code has been seen before!", 'access_denied', $state);
 			    
+			    // Authenticate user
+			    if (!$user = \Idno\Core\site()->session()->currentUser()) {
+				
+				
+				// Do login and redirect workflow
+				$t = \Idno\Core\site()->template();
+				$body = $t->__(['fwd' => $this->currentUrl()])->draw('session/login');
+				$t->__(['title' => 'Please log in', 'body' => $body])->drawPage();
+
+				
+			    }
+			    
 			    // Save code so we've not seen it before
 			    if (!$code->save()) throw new \IdnoPlugins\OAuth2\OAuth2Exception("Bang, code incorrect", 'invalid_request', $state);
 			    
@@ -80,9 +92,6 @@ namespace IdnoPlugins\OAuth2\Pages {
 	    }
 	}
 
-	function postContent() {
-	    $this->getContent();
-	}
 
     }
 
