@@ -37,10 +37,6 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("I have no knowledge of the application identified by $client_id", 'unauthorized_client', $state);
 			    
-			    // Check code 
-			    if ($code->getOne(['code' => $code]))
-				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, this code has been seen before!", 'access_denied', $state);
-			    
 			    // Authenticate user
 			    if (!$user = \Idno\Core\site()->session()->currentUser()) {
 				
@@ -48,6 +44,16 @@ namespace IdnoPlugins\OAuth2\Pages {
 				$this->forward('/session/login?fwd=' . urlencode($this->currentUrl()));
 				
 			    }
+			    
+			    // Not authorized before, or change in scope?
+			    if ((!$user->oauth2[$client_id]) || ($user->oauth2[$client_id]['scope'] != $scope)) {
+				$this->forward('/oauth2/connect?client_id='.$client_id.'&scope='.urlencode($scope).'fwd=' . urlencode($this->currentUrl()));
+			    }
+			    
+			    // Check code 
+			    if ($code->getOne(['code' => $code]))
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, this code has been seen before!", 'access_denied', $state);
+			    
 			    
 			    // Save code so we've not seen it before
 			    if (!$code->save()) throw new \IdnoPlugins\OAuth2\OAuth2Exception("Bang, code incorrect", 'invalid_request', $state);
