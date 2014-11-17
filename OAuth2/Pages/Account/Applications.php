@@ -16,26 +16,31 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
 	}
 
 	function postContent() {
-	    
-	    $this->gatekeeper(); 
 
-                $action = $this->getInput('action');
+	    $this->gatekeeper();
 
-                switch ($action) {
-		    case 'create' :
-			$app = \IdnoPlugins\OAuth2\Application::newApplication($this->getInput('name'));
-			
-			if ($app->save())
-			    \Idno\Core\site ()->session ()->addMessage ("New application " . $app->getTitle () . " created!");
-			
-			else
-			    \Idno\Core\site()->session ()->addErrorMessage ("Problem creating new application...");
-			break;
-		    case 'delete' :
-			break;
-		}
-		
-		$this->forward(\Idno\Core\site()->config()->getURL() . 'account/oauth2/');
+	    $action = $this->getInput('action');
+
+	    switch ($action) {
+		case 'create' :
+		    $app = \IdnoPlugins\OAuth2\Application::newApplication($this->getInput('name'));
+
+		    if ($app->save())
+			\Idno\Core\site()->session()->addMessage("New application " . $app->getTitle() . " created!");
+		    else
+			\Idno\Core\site()->session()->addErrorMessage("Problem creating new application...");
+		    break;
+		case 'delete' :
+		    $uuid = $this->getInput('app_uuid');
+		    if ($app = \IdnoPlugins\OAuth2\Application::getByUUID($uuid)) {
+			if ($app->delete()) {
+			    \Idno\Core\site()->session()->addMessage($app->getTitle() . " was removed.");
+			}
+		    }
+		    break;
+	    }
+
+	    $this->forward(\Idno\Core\site()->config()->getURL() . 'account/oauth2/');
 	}
 
     }
