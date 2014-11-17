@@ -23,10 +23,19 @@ namespace IdnoPlugins\OAuth2\Pages\Account {
 
                 switch ($action) {
 		    case 'create' :
+			$app = \IdnoPlugins\OAuth2\Application::newApplication($this->getInput('name'));
+			
+			if ($app->save())
+			    \Idno\Core\site ()->session ()->addMessage ("New application " . $app->getTitle () . " created!");
+			
+			else
+			    \Idno\Core\site()->session ()->addErrorMessage ("Problem creating new application...");
 			break;
 		    case 'delete' :
 			break;
 		}
+		
+		$this->forward(\Idno\Core\site()->config()->getURL() . 'account/oauth2/');
 	}
 
     }

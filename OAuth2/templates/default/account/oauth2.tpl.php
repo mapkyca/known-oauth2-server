@@ -24,7 +24,7 @@
 
 		<div class="controls">
 		    <input type="text" id="inputName" placeholder="New Application name" class="span4" name="name"
-			   value="">
+			   value="" required>
 		    
 		    <button type="submit" class="btn btn-primary btn-large">Generate new keys...</button>
 		</div>
@@ -56,19 +56,18 @@
 
 	    	    <div class="span2">
 	    		<p>
-	    		    <small><strong>Application Name</strong><br><?= $app->getTitle(); ?></small>
+			    <strong><?= $app->getTitle(); ?></strong>
 	    		</p>
 	    	    </div>
-	    	    <div class="span2">
+	    	    <div class="span5">
 	    		<p>
-	    		    <small><strong>App Key</strong><br><?= $app->key; ?></small>
+	    		    <small><strong>App Key: </strong> <?= $app->key; ?></small>
+	    		</p>
+			<p>
+	    		    <small><strong>Secret: </strong> <?= $app->secret; ?></small>
 	    		</p>
 	    	    </div>
-	    	    <div class="span2">
-	    		<p>
-	    		    <small><strong>Secret</strong><br><?= $app->secret; ?></small>
-	    		</p>
-	    	    </div>
+		    
 	    	    <div class="span1">
 	    		<p><small>
 				    <?php
@@ -80,6 +79,7 @@
 				    ?>
 	    		    </small></p>
 	    	    </div>
+		    
 	    	</div>
 		    <?php
 		}
