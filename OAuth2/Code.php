@@ -11,6 +11,8 @@ namespace IdnoPlugins\OAuth2 {
 	    
 	    $this->code = hash('sha256', mt_rand() . microtime(true));
 	    $this->expires = strtotime('now + 10 minutes');
+	    
+	    $this->setTitle($this->code); // better stub generation, not that it matters
 	}
 
 	function saveDataFromInput() {
@@ -31,6 +33,13 @@ namespace IdnoPlugins\OAuth2 {
 	    return $this->save();
 	}
 
+	function jsonSerialize() { // Code is only ever serialised as part of something else
+	    return $this->code;
+	}
+	
+	function __toString() {
+	    return $this->code;
+	}
     }
 
 }

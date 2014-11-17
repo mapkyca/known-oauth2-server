@@ -29,6 +29,10 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    $code->client_id = $client_id;
 			    $code->state = $state;
 			    
+			    // Check Application
+			    if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception("I have no knowledge of the application identified by $client_id", 'unauthorized_client', $state);
+			    
 			    // Check code 
 			    if ($code->getOne(['code' => $code]))
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, this code has been seen before!", 'access_denied', $state);
@@ -59,7 +63,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 		    
 		} catch (\IdnoPlugins\OAuth2\OAuth2Exception $oa2e) {
 		    $this->setResponse($oa2e->http_code);
-		    echo $oa2e->jsonSerialize();
+		    echo json_encode($oa2e->jsonSerialize());
 		}
 		
 	    } catch (\Exception $e) {

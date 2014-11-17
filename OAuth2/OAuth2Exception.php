@@ -7,19 +7,24 @@ namespace IdnoPlugins\OAuth2 {
 	
 	public $http_code;
 	public $state;
+	public $error;
 	
 	public function __construct($message, $error = 'invalid_request', $state = null, $http_code = 400) {
-	    parent::__construct($message, $error);
+	    parent::__construct($message);
+	    $this->error = $error;
 	    $this->state = $state;
 	    $this->http_code = $http_code;
 	}
 
 	public function jsonSerialize() {
-	    return [
-		'error' => $this->getCode(),
+	    $return =[
+		'error' => $this->error,
 		'error_description' => $this->getMessage(),
-		'state' => $this->state,
+		
 	    ];
+	    if ($this->state) $return['state'] = $this->state;
+		    
+	    return $return;
 	}
 
     }
