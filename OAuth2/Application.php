@@ -46,7 +46,7 @@ namespace IdnoPlugins\OAuth2 {
 		}
 	    }
 
-	    $this->setAccess('PRIVATE');
+	    $this->setAccess('PUBLIC');
 	    return $this->save();
 	}
 
