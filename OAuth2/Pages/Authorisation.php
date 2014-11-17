@@ -44,12 +44,8 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    // Authenticate user
 			    if (!$user = \Idno\Core\site()->session()->currentUser()) {
 				
-				
 				// Do login and redirect workflow
-				$t = \Idno\Core\site()->template();
-				$body = $t->__(['fwd' => $this->currentUrl()])->draw('session/login');
-				$t->__(['title' => 'Please log in', 'body' => $body])->drawPage();
-
+				$this->forward('/session/login?fwd=' . urlencode($this->currentUrl()));
 				
 			    }
 			    
