@@ -17,13 +17,51 @@ namespace IdnoPlugins\OAuth2\Pages {
 
 		    if (!$grant_type)
 			throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter grant_type is missing!", 'invalid_request', $state);
-		    if (!$client_id)
-			throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter client_id is missing!", 'invalid_request', $state);
 
 		    switch ($grant_type) {
 
+			// Refresh token
+			case 'refresh_token' :
+			    
+			    $refresh_token = $this->getInput('refresh_token');
+			    
+			    if (!$refresh_token)
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter refresh_token is missing!", 'invalid_request', $state);
+			    
+			    if (!($token = \IdnoPlugins\OAuth2\Token::getOne(['key' => $client_id, 'refresh_token' => $refresh_token])))
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, no refresh token found for the provided client_id!", 'invalid_grant', $state);
+			    
+			    // Check state on object
+			    if ($token->state) {
+				if ($token->state != $state)
+				    throw new \IdnoPlugins\OAuth2\OAuth2Exception("Invalid state given", 'access_denied', $state);
+			    }
+			    
+			    // OK so far, so generate new token
+			    $newtoken = new \IdnoPlugins\OAuth2\Token();
+
+			    // Add state and scope variables
+			    $newtoken->state = $token->state;
+			    $newtoken->scope = $token->scope;
+			    
+			    // Bind to a client ID!
+			    $newtoken->key = $token->key;
+			    
+			    // Ok, delete old token and issue a new token
+			    if ($token->delete() && $newtoken->save()) {
+				echo json_encode($token);
+			    }
+			    else
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Server problem, couldn't refresh token. Try again in a bit...", 'invalid_grant', $state);
+			    
+			    break;
+
+			// Basic authorisation
 			case 'authorization_code':
 			default:
+
+			    if (!$client_id)
+				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter client_id is missing!", 'invalid_request', $state);
 
 			    // Check Application
 			    if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
@@ -47,10 +85,13 @@ namespace IdnoPlugins\OAuth2\Pages {
 
 			    // OK so far, so generate new token
 			    $token = new \IdnoPlugins\OAuth2\Token();
-			    
+
 			    // Add state and scope variables
 			    $token->state = $state;
 			    $token->scope = $code_obj->scope;
+			    
+			    // Bind to a client ID!
+			    $token->key = $client_id;
 
 			    if (!$token->save())
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Server problem, couldn't generate new tokens. Try again in a bit...", 'invalid_grant', $state);
