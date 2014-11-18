@@ -47,7 +47,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    
 			    // Not authorized before, or change in scope?
 			    if ((!$user->oauth2[$client_id]) || ($user->oauth2[$client_id]['scope'] != $scope)) {
-				$this->forward('/oauth2/connect?client_id='.$client_id.'&scope='.urlencode($scope).'fwd=' . urlencode($this->currentUrl()));
+				$this->forward('/oauth2/connect?client_id='.$client_id.'&scope='.urlencode($scope).'&fwd=' . urlencode($this->currentUrl()));
 			    }
 			    
 			    // Check code 
