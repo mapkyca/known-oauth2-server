@@ -29,7 +29,7 @@ Currently the pluin supports:
 Example usage
 -------------
 
-To get a code:
+**To get a code:**
 
 ```https://mysite.com/oauth2/authorise/?response_type=code&client_id=<your API Key>&redirect_uri=<path to your endpoint>```
 
@@ -39,14 +39,14 @@ As per the spec, you can omit the ```redirect_uri```, in which case the response
 forwarded to the endpoint, with appropriate parameters in the GET fields.
 
 
-To get a token:
+**To get a token:**
 
 ```https://mysite.com/oauth2/access_token/?grant_type=authorization_code&client_id=<your API Key>&redirect_uri=<path to your endpoint>```
 
 You should get back a json encoded blob with an access token, expiry and refresh token.
 
 
-To refresh a token:
+**To refresh a token:**
 
 If your access token has expired, you can update it with the refresh token.
 
