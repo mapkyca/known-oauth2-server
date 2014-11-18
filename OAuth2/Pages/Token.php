@@ -28,7 +28,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    if (!$refresh_token)
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Required parameter refresh_token is missing!", 'invalid_request', $state);
 			    
-			    if (!($token = \IdnoPlugins\OAuth2\Token::getOne(['key' => $client_id, 'refresh_token' => $refresh_token])))
+			    if (!($token = \IdnoPlugins\OAuth2\Token::getOne([/*'key' => $client_id, */'refresh_token' => $refresh_token])))
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, no refresh token found for the provided client_id!", 'invalid_grant', $state);
 			    
 			    // Check state on object
@@ -36,7 +36,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 				if ($token->state != $state)
 				    throw new \IdnoPlugins\OAuth2\OAuth2Exception("Invalid state given", 'access_denied', $state);
 			    }
-			    
+			    			    
 			    // OK so far, so generate new token
 			    $newtoken = new \IdnoPlugins\OAuth2\Token();
 
@@ -46,6 +46,9 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    
 			    // Bind to a client ID!
 			    $newtoken->key = $token->key;
+			    
+			    // Set owner from code object
+			    $newtoken->setOwner($token->getOwner());
 			    
 			    // Ok, delete old token and issue a new token
 			    if ($token->delete() && $newtoken->save()) {
@@ -68,7 +71,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("I have no knowledge of the application identified by $client_id", 'unauthorized_client', $state);
 
 			    // Check code 
-			    if ((!($code_obj = \IdnoPlugins\OAuth2\Code::getOne(['code' => $code]))) || ($code_obj->expires < time()))
+			    if ((!($code_obj = \IdnoPlugins\OAuth2\Code::getOne(['code' => $code, 'key' => $client_id]))) || ($code_obj->expires < time()))
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Sorry, unknown or expired code!", 'invalid_grant', $state);
 
 			    // Check state on object
@@ -92,6 +95,9 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    
 			    // Bind to a client ID!
 			    $token->key = $client_id;
+			    
+			    // Set owner from code object
+			    $token->setOwner($code_obj->getOwner());
 
 			    if (!$token->save())
 				throw new \IdnoPlugins\OAuth2\OAuth2Exception("Server problem, couldn't generate new tokens. Try again in a bit...", 'invalid_grant', $state);
