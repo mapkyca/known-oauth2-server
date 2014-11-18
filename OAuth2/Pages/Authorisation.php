@@ -29,7 +29,7 @@ namespace IdnoPlugins\OAuth2\Pages {
 			    
 			    // Save context
 			    $code->scope = $scope;
-			    $code->client_id = $client_id;
+			    $code->key = $client_id;
 			    $code->state = $state;
 			    $code->redirect_uri = $redirect_uri;
 			    
