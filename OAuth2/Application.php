@@ -40,12 +40,6 @@ namespace IdnoPlugins\OAuth2 {
 
 	    $this->setTitle(\Idno\Core\site()->currentPage()->getInput('name'));
 
-	    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
-		if ($time = strtotime($time)) {
-		    $this->created = $time;
-		}
-	    }
-
 	    $this->setAccess('PUBLIC');
 	    return $this->save();
 	}

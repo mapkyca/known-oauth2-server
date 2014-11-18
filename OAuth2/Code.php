@@ -23,12 +23,6 @@ namespace IdnoPlugins\OAuth2 {
 		$new = false;
 	    }
 
-	    if ($time = \Idno\Core\site()->currentPage()->getInput('created')) {
-		if ($time = strtotime($time)) {
-		    $this->created = $time;
-		}
-	    }
-
 	    $this->setAccess('PRIVATE');
 	    return $this->save();
 	}
