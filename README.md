@@ -35,7 +35,7 @@ To get a code:
 
 You will be bounced to a login + authorisation page if necessary, so follow forwards.
 
-As per the spec, you can omit the redirect_uri, in which case the response will be a straight json encoded blob. If redirect_uri is specified you will be
+As per the spec, you can omit the ```redirect_uri```, in which case the response will be a straight json encoded blob. If ```redirect_uri``` is specified you will be
 forwarded to the endpoint, with appropriate parameters in the GET fields.
 
 
@@ -43,7 +43,7 @@ To get a token:
 
 ```https://mysite.com/oauth2/access_token/?grant_type=authorization_code&client_id=<your API Key>&redirect_uri=<path to your endpoint>```
 
-You should get back a json encoded blob with an access_token, expiry and refresh token.
+You should get back a json encoded blob with an access token, expiry and refresh token.
 
 
 To refresh a token:
