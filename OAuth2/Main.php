@@ -42,6 +42,10 @@ namespace IdnoPlugins\OAuth2 {
 			    // Save session scope
 			    $_SESSION['oauth2_token'] = $token;
 			    
+			    // Double check scope
+			    if ($owner->oauth2[$token->key]['scope'] != $token->scope) 
+				throw new \Exception("Token scope doesn't match that which was previously granted!");
+			    
 			} else {
 			    \Idno\Core\site()->triggerEvent('login/failure', array('user' => $owner));
 			    
