@@ -42,13 +42,13 @@ namespace IdnoPlugins\OAuth2 {
 			} else {
 			    \Idno\Core\site()->triggerEvent('login/failure', array('user' => $owner));
 			    
-			    \Idno\Core\site()->logging()->log("Token user could not be retrieved.", LOGLEVEL_ERROR);
+			    throw new \Exception("Token user could not be retrieved.");
 			}
 		    } else {
-			\Idno\Core\site()->logging()->log("Access token $access_token does not match any stored token.", LOGLEVEL_ERROR);
+			throw new \Exception("Access token $access_token does not match any stored token.");
 		    }
 		} else {
-		    \Idno\Core\site()->logging()->log("Access token $access_token does not match any stored token.", LOGLEVEL_ERROR);
+		    throw new \Exception("Access token $access_token does not match any stored token.", LOGLEVEL_ERROR);
 		}
 	    }
 	}
