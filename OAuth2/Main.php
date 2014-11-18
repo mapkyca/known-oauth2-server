@@ -6,8 +6,9 @@
 	    
 	   
             function registerPages() {
-                \Idno\Core\site()->addPageHandler('/oauth2/authorise/', '\IdnoPlugins\OAuth2\Pages\Authorisation');
-		\Idno\Core\site()->addPageHandler('/oauth2/access_token/', '\IdnoPlugins\OAuth2\Pages\Token');
+                \Idno\Core\site()->addPageHandler('/oauth2/authorise/?', '\IdnoPlugins\OAuth2\Pages\Authorisation');
+		\Idno\Core\site()->addPageHandler('/oauth2/access_token/?', '\IdnoPlugins\OAuth2\Pages\Token');
+		\Idno\Core\site()->addPageHandler('/oauth2/connect/?', '\IdnoPlugins\OAuth2\Pages\Connect');
 		
 		// Adding OAuth2 app page
 		\Idno\Core\site()->addPageHandler('/account/oauth2/?', '\IdnoPlugins\OAuth2\Pages\Account\Applications');
