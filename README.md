@@ -18,7 +18,7 @@ Usage
 
 Support
 -------
-Currently the pluin supports:
+Currently the plugin supports:
 
 * [x] response_type=code
 * [x] grant_type=authorization_code
