@@ -40,12 +40,17 @@ namespace IdnoPlugins\OAuth2 {
 	}
 	
 	function jsonSerialize() { // Code is only ever serialised as part of something else
-	    return [
+	    $return = [
 		'access_token' => $this->access_token,
 		'refresh_token' => $this->refresh_token,
 		'expires_in' => $this->expires_in,
 		'token_Type' => $this->token_type
 	    ];
+	    
+	    if ($this->state) $return['state'] = $this->state;
+	    if ($this->scope) $return['scope'] = $this->scope;
+	    
+	    return $return;
 	}
 	
 
