@@ -16,6 +16,14 @@ namespace IdnoPlugins\OAuth2 {
 	    
 	    $this->setTitle($this->access_token); // better stub generation, not that it matters
 	}
+	
+	/**
+	 * Check whether a token is valid (i.e. not expired)
+	 */
+	function isValid() {
+	    
+	    return ($this->created + $this->expires_in > time());
+	}
 
 	/**
 	 * Saves changes to this object based on user input
