@@ -52,7 +52,7 @@ namespace IdnoPlugins\OAuth2 {
 			    throw new \Exception("Token user could not be retrieved.");
 			}
 		    } else {
-			throw new \Exception("Access token $access_token does not match any stored token.");
+			throw new \Exception("Access token $access_token has expired.");
 		    }
 		} else {
 		    throw new \Exception("Access token $access_token does not match any stored token.", LOGLEVEL_ERROR);
