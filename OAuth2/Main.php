@@ -40,7 +40,7 @@ namespace IdnoPlugins\OAuth2 {
 			    \Idno\Core\site()->session()->refreshSessionUser($owner); // Log user on, but avoid triggering hook and going into an infinite loop!
 			    
 			    // Save session scope
-			    $_SESSION['oauth2_scope'] = $token->scope;
+			    $_SESSION['oauth2_token'] = $token;
 			    
 			} else {
 			    \Idno\Core\site()->triggerEvent('login/failure', array('user' => $owner));
