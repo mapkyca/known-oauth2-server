@@ -17,8 +17,15 @@ namespace IdnoPlugins\OAuth2 {
 	function registerEventHooks() {
 	    
 	    // Authenticate!
-	    \Idno\Core\site()->addEventHook('user/auth', function(\Idno\Core\Event $event) { \IdnoPlugins\OAuth2\Main::authenticate(); }, 0);
-	    \Idno\Core\site()->addEventHook('user/auth/api', function(\Idno\Core\Event $event) { \IdnoPlugins\OAuth2\Main::authenticate();  }, 0);
+	    \Idno\Core\site()->addEventHook('user/auth', function(\Idno\Core\Event $event) { 
+		if ($user = \IdnoPlugins\OAuth2\Main::authenticate())
+			$event->setResponse($user);
+		
+	    }, 0);
+	    \Idno\Core\site()->addEventHook('user/auth/api', function(\Idno\Core\Event $event) { 
+		if ($user = \IdnoPlugins\OAuth2\Main::authenticate())
+			$event->setResponse($user);
+	    }, 0);
 	}
 
 	public static function authenticate() {
@@ -38,13 +45,15 @@ namespace IdnoPlugins\OAuth2 {
 			if ($owner) {
 			    
 			    \Idno\Core\site()->session()->refreshSessionUser($owner); // Log user on, but avoid triggering hook and going into an infinite loop!
-			    
+			    			    
 			    // Save session scope
 			    $_SESSION['oauth2_token'] = $token;
 			    
 			    // Double check scope
 			    if ($owner->oauth2[$token->key]['scope'] != $token->scope) 
 				throw new \Exception("Token scope doesn't match that which was previously granted!");
+			    
+			    return $owner;
 			    
 			} else {
 			    \Idno\Core\site()->triggerEvent('login/failure', array('user' => $owner));
