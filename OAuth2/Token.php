@@ -18,10 +18,11 @@ namespace IdnoPlugins\OAuth2 {
 	}
 	
 	/**
-	 * Check whether a token is valid (i.e. not expired)
+	 * Check whether a token is valid (i.e. not expired) and that an application with the given key exists.
 	 */
 	function isValid() {
 	    
+ 	    if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $this->key])) return false;
 	    return ($this->created + $this->expires_in > time());
 	}
 
