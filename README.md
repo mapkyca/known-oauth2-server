@@ -62,6 +62,17 @@ On a successful login the token used will be saved to the current session in ```
 
 The scope granted to a given user is also saved against the user object in an array ```$user->oauth2[$client_id]['scope']```, which is also cross checked on login.
 
+Why not use native signed HTTP?
+-------------------------------
+
+Natively, Known uses a per-user api key to sign requests, so why not use this? 
+
+Of course you can still, and the OAuth2 server doesn't replace that option. In many ways the signed HTTP approach is easier to get going, however...
+
+1) There are many existing libraries for OAuth2 in pretty much every language.
+2) With OAuth2 you give different credentials to each application. This means that if you no longer want to allow access from application A, but still want to keep B and C, you can revoke A's tokens specifically.
+
+
 See
 ---
  * Author: Marcus Povey <http://www.marcus-povey.co.uk> 
