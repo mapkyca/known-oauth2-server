@@ -23,7 +23,7 @@
 		<label class="control-label" for="inputName">Your application name</label>
 
 		<div class="controls">
-		    <input type="text" id="inputName" placeholder="New Application name" class="col-md-4" name="name"
+		    <input type="text" id="inputName" placeholder="New Application name" name="name"
 			   value="" required>
 		    
 		    <button type="submit" class="btn btn-primary btn-large">Generate new keys...</button>
