@@ -26,13 +26,8 @@
 		    <input type="text" id="inputName" placeholder="New Application name" name="name"
 			   value="" required>
 		    
-		    
-		</div>
-		
-		<div class="controls">
 		    <button type="submit" class="btn btn-primary btn-large">Generate new keys...</button>
 		</div>
-		     
 
 	    </div>
 
