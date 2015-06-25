@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span6 offset3 well text-center">
+    <div class="col-md-6 col-md-offset-3 well text-center">
 
 		<h2 class="text-center welcome">Authorise connection to <?= $vars['client']->getTitle(); ?></h2>
 

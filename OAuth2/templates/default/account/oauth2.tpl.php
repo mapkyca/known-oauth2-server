@@ -1,13 +1,13 @@
 <div class="row">
 
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
         <h3>Manage OAuth2 Applications</h3>
 	<?= $this->draw('account/menu') ?>
     </div>
 
 </div>
 <div class="row">
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 
 	<div class="explanation">
             <p>
@@ -23,7 +23,7 @@
 		<label class="control-label" for="inputName">Your application name</label>
 
 		<div class="controls">
-		    <input type="text" id="inputName" placeholder="New Application name" class="span4" name="name"
+		    <input type="text" id="inputName" placeholder="New Application name" class="col-md-4" name="name"
 			   value="" required>
 		    
 		    <button type="submit" class="btn btn-primary btn-large">Generate new keys...</button>
@@ -38,12 +38,12 @@
 
 <div class="row">
     
-    <div class="span10 offset1">
+    <div class="col-md-10 col-md-offset-1">
 	
 	<h3>Your Applications</h3>
 	
     </div>
-    <div class="pane span10 offset1">
+    <div class="pane col-md-10 col-md-offset-1">
 	
 
 	<?php
@@ -54,12 +54,12 @@
 
 	    	<div class="row">
 
-	    	    <div class="span2">
+	    	    <div class="col-md-2">
 	    		<p>
 			    <strong><?= $app->getTitle(); ?></strong>
 	    		</p>
 	    	    </div>
-	    	    <div class="span5">
+	    	    <div class="col-md-5">
 	    		<p>
 	    		    <small><strong>App Key: </strong> <?= $app->key; ?></small>
 	    		</p>
@@ -68,7 +68,7 @@
 	    		</p>
 	    	    </div>
 		    
-	    	    <div class="span1">
+	    	    <div class="col-md-1">
 	    		<p><small>
 				    <?php
 				    if ($app->canEdit()) {
