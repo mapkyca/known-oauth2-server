@@ -15,16 +15,12 @@ namespace IdnoPlugins\OAuth2 {
 	}
 
 	function registerEventHooks() {
-	    
+
 	    // Authenticate!
-	    \Idno\Core\site()->addEventHook('user/auth', function(\Idno\Core\Event $event) { 
+	    \Idno\Core\site()->addEventHook('user/auth/request', function(\Idno\Core\Event $event) {
 		if ($user = \IdnoPlugins\OAuth2\Main::authenticate())
-			$event->setResponse($user);
-		
-	    }, 0);
-	    \Idno\Core\site()->addEventHook('user/auth/api', function(\Idno\Core\Event $event) { 
-		if ($user = \IdnoPlugins\OAuth2\Main::authenticate())
-			$event->setResponse($user);
+		    $event->setResponse($user);
+
 	    }, 0);
 	}
 
@@ -32,6 +28,8 @@ namespace IdnoPlugins\OAuth2 {
 
 	    // Have we been provided with an access token
 	    if ($access_token = \Idno\Core\site()->currentPage()->getInput('access_token')) {
+
+		 \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
 
 		// Get token
 		if ($token = Token::getOne(['access_token' => $access_token])) {
