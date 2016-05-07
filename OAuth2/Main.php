@@ -27,7 +27,7 @@ namespace IdnoPlugins\OAuth2 {
 	public static function authenticate() {
 
 	    // Have we been provided with an access token
-	    if ($access_token = \Idno\Core\site()->currentPage()->getInput('access_token')) {
+	    if ($access_token = \Idno\Core\Input::getInput('access_token')) {
 
 		 \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
 
