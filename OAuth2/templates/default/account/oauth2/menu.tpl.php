@@ -1,1 +1,0 @@
-<li <?php if ($_SERVER['REQUEST_URI'] == '/account/oauth2/') echo 'class="active"'; ?>><a href="/account/oauth2/">OAuth2 Applications</a></li>
