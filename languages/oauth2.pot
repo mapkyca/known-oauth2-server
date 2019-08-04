@@ -1,77 +1,17 @@
-#: ./Pages/Token.php:19
-msgid "Required parameter grant_type is missing!"
+#: ./Main.php:89
+msgid "Token scope doesn't match that which was previously granted!"
 msgstr ""
 
-#: ./Pages/Token.php:29
-msgid "Required parameter refresh_token is missing!"
+#: ./Main.php:96
+msgid "Token user could not be retrieved."
 msgstr ""
 
-#: ./Pages/Token.php:32
-msgid "Sorry, that refresh token appears to be invalid!"
+#: ./Main.php:99
+msgid "Access token %s has expired."
 msgstr ""
 
-#: ./Pages/Token.php:37
-msgid "Invalid state given"
-msgstr ""
-
-#: ./Pages/Token.php:58
-msgid "Server problem, couldn't refresh token. Try again in a bit..."
-msgstr ""
-
-#: ./Pages/Token.php:67
-msgid "Required parameter client_id is missing!"
-msgstr ""
-
-#: ./Pages/Token.php:71
-msgid "I have no knowledge of the application identified by %s"
-msgstr ""
-
-#: ./Pages/Token.php:75
-msgid "Sorry, unknown or expired code!"
-msgstr ""
-
-#: ./Pages/Token.php:86
-msgid "Sorry, redirect_uri doesn't match the one given before!"
-msgstr ""
-
-#: ./Pages/Token.php:103
-msgid "Server problem, couldn't generate new tokens. Try again in a bit..."
-msgstr ""
-
-#: ./Pages/Authorisation.php:17
-msgid "Required parameter response_type is missing!"
-msgstr ""
-
-#: ./Pages/Authorisation.php:22
-msgid "Sorry, implicit grant is currently not supported."
-msgstr ""
-
-#: ./Pages/Authorisation.php:55
-msgid "Sorry, this code has been seen before!"
-msgstr ""
-
-#: ./Pages/Authorisation.php:59
-msgid "Bang, code incorrect"
-msgstr ""
-
-#: ./Pages/Account/Applications.php:14
-msgid "Manage OAuth2 Applications"
-msgstr ""
-
-#: ./Pages/Account/Applications.php:29
-msgid "New application %s created!"
-msgstr ""
-
-#: ./Pages/Account/Applications.php:31
-msgid "Problem creating new application..."
-msgstr ""
-
-#: ./Pages/Account/Applications.php:37
-msgid "%s was removed."
-msgstr ""
-
-#: ./Pages/Connect.php:23
-msgid "Could not load client associated with %s"
+#: ./Main.php:102
+msgid "Access token %s does not match any stored token."
 msgstr ""
 
 #: ./templates/default/oauth2/forms/connect.tpl.php:4
@@ -90,8 +30,8 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ./templates/default/account/oauth2/menu.tpl.php:1
-msgid "OAuth2 Applications"
+#: ./templates/default/account/oauth2.tpl.php:5
+msgid "Manage OAuth2 Applications"
 msgstr ""
 
 #: ./templates/default/account/oauth2.tpl.php:15
@@ -130,19 +70,95 @@ msgstr ""
 msgid "Are you sure? This will delete this application."
 msgstr ""
 
-#: ./Main.php:62
-msgid "Token scope doesn't match that which was previously granted!"
+#: ./templates/default/account/oauth2.tpl.php:103
+msgid "Auth URL"
 msgstr ""
 
-#: ./Main.php:69
-msgid "Token user could not be retrieved."
+#: ./templates/default/account/oauth2.tpl.php:115
+msgid "Token URL"
 msgstr ""
 
-#: ./Main.php:72
-msgid "Access token %s has expired."
+#: ./templates/default/account/oauth2.tpl.php:127
+msgid "Connect URL"
 msgstr ""
 
-#: ./Main.php:75
-msgid "Access token %s does not match any stored token."
+#: ./templates/default/account/oauth2.tpl.php:140
+msgid "Owner Resource URL"
+msgstr ""
+
+#: ./templates/default/account/oauth2/menu.tpl.php:1
+msgid "OAuth2 Applications"
+msgstr ""
+
+#: ./Pages/Token.php:22
+msgid "Required parameter grant_type is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:34
+msgid "Required parameter refresh_token is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:39
+msgid "Sorry, that refresh token appears to be invalid!"
+msgstr ""
+
+#: ./Pages/Token.php:46
+msgid "Invalid state given"
+msgstr ""
+
+#: ./Pages/Token.php:69
+msgid "Server problem, couldn't refresh token. Try again in a bit..."
+msgstr ""
+
+#: ./Pages/Token.php:80
+msgid "Required parameter client_id is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:86
+msgid "I have no knowledge of the application identified by %s"
+msgstr ""
+
+#: ./Pages/Token.php:92
+msgid "Sorry, unknown or expired code!"
+msgstr ""
+
+#: ./Pages/Token.php:107
+msgid "Sorry, redirect_uri doesn't match the one given before!"
+msgstr ""
+
+#: ./Pages/Token.php:126
+msgid "Server problem, couldn't generate new tokens. Try again in a bit..."
+msgstr ""
+
+#: ./Pages/Authorisation.php:19
+msgid "Required parameter response_type is missing!"
+msgstr ""
+
+#: ./Pages/Authorisation.php:25
+msgid "Sorry, implicit grant is currently not supported."
+msgstr ""
+
+#: ./Pages/Authorisation.php:59
+msgid "Sorry, this code has been seen before!"
+msgstr ""
+
+#: ./Pages/Authorisation.php:63
+msgid "Bang, code incorrect"
+msgstr ""
+
+#: ./Pages/Connect.php:26
+msgid "Could not load client associated with %s"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:32
+msgid "New application %s created!"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:34
+msgid "Problem creating new application..."
+msgstr ""
+
+#: ./Pages/Account/Applications.php:41
+msgid "%s was removed."
 msgstr ""
 
