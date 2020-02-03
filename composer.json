@@ -2,7 +2,7 @@
     "name": "mapkyca/known-oauth2-server",
     "type": "known-plugin",
     "description": "Provides an OAuth2 authentication server for API calls",
-    "version": "0.10.3",
+    "version": "1.0.0",
     "homepage": "https://www.marcus-povey.co.uk",
     "keywords": [
         "known",

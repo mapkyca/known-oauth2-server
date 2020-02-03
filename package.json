@@ -1,6 +1,6 @@
 {
     "name": "OAuth2",
-    "version": "0.10.3",
+    "version": "1.0.0",
     "devDependencies": {
         "grunt": "^0.4.5"
     }
