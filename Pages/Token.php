@@ -117,6 +117,13 @@ namespace IdnoPlugins\OAuth2\Pages {
 
                             // Bind to a client ID!
                             $token->key = $client_id;
+                            
+                            // OpenID Connect?
+                            if (stripos($token->scope, 'openid') !== false) {
+                                
+                                $jwt = new JWT($code_obj->getOwner(), time() + $token->expires_in);
+                                $token->id_token = "{$jwt}";
+                            }
 
                             // Set owner from code object
                             $token->setOwner($code_obj->getOwner());
