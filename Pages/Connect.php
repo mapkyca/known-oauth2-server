@@ -7,6 +7,10 @@ namespace IdnoPlugins\OAuth2\Pages {
 
         function getContent()
         {
+            
+            header('Cache-Control: no-store');
+            header('Pragma: no-cache');
+            
             $this->gatekeeper();
 
             $fwd = $this->getInput('fwd'); // return page
