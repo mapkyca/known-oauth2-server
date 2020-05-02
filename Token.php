@@ -90,8 +90,14 @@ namespace IdnoPlugins\OAuth2 {
                         $oidc['website'] = $this->getOwner()->getURL();
                     }
                     
+                    // Application
+                    $client = Application::getOne(['key' => $this->key]);
+                    if (empty($client)) {
+                        throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("The Application for this client id could not be found"));
+                    }
+                    
                     // Find Private key
-                    $privatekey = \Idno\Core\Idno::site()->config()->oauth2Server['privatekey'];
+                    $privatekey = $client->getPublicKey();
                     if (empty($privatekey)) {
                         throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("No private key could be found"));
                     }
