@@ -21,6 +21,9 @@ namespace IdnoPlugins\OAuth2 {
             \Idno\Core\site()->routes()->addRoute('/oauth2/access_token/?', '\IdnoPlugins\OAuth2\Pages\Token');
             \Idno\Core\site()->routes()->addRoute('/oauth2/connect/?', '\IdnoPlugins\OAuth2\Pages\Connect');
             \Idno\Core\site()->routes()->addRoute('/oauth2/owner/?', '\IdnoPlugins\OAuth2\Pages\Owner');
+            
+            // Expose some information (public key)
+            \Idno\Core\site()->routes()->addRoute('/oauth2/([A-Za-z0-9]+)/key/?', Pages\PublicKey::class);
 
             // Adding OAuth2 app page
             \Idno\Core\site()->routes()->addRoute('/account/oauth2/?', '\IdnoPlugins\OAuth2\Pages\Account\Applications');
