@@ -70,6 +70,14 @@
                             <p>
                                 <small><strong><?= \Idno\Core\Idno::site()->language()->_('Secret'); ?>: </strong> <?= $app->secret; ?></small>
                             </p>
+                            <?php if (!empty($app->getPublicKey())) {
+                                ?>
+                            <p>
+                                <small><strong><a href="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>oauth2/<?= $app->key ?>/key/" target="_blank"><?= \Idno\Core\Idno::site()->language()->_('Public key'); ?></a></strong></small>
+                            </p>
+                            <?php
+                            }
+                            ?>
                         </div>
 
                         <div class="col-md-1">
