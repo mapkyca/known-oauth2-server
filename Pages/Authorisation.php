@@ -45,10 +45,11 @@ namespace IdnoPlugins\OAuth2\Pages {
                             }
 
                             // Authenticate user
-                            if (!$user = \Idno\Core\site()->session()->currentUser()) {
+                            $user = \Idno\Core\site()->session()->currentUser();
+                            if (empty($user)) {
 
                                 // Do login and redirect workflow
-                                $this->forward('/session/login?fwd=' . urlencode($this->currentUrl()));
+                                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . \Idno\Core\Webservice::base64UrlEncode($this->currentUrl()));
 
                             }
 
