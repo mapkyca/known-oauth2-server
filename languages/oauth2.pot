@@ -1,16 +1,28 @@
-#: ./Main.php:89
+#: ./Token.php:96
+msgid "The Application for this client id could not be found"
+msgstr ""
+
+#: ./Token.php:102
+msgid "No private key could be found"
+msgstr ""
+
+#: ./Token.php:108
+msgid "There was a problem generating a OIDC token"
+msgstr ""
+
+#: ./Main.php:92
 msgid "Token scope doesn't match that which was previously granted!"
 msgstr ""
 
-#: ./Main.php:96
+#: ./Main.php:99
 msgid "Token user could not be retrieved."
 msgstr ""
 
-#: ./Main.php:99
+#: ./Main.php:102
 msgid "Access token %s has expired."
 msgstr ""
 
-#: ./Main.php:102
+#: ./Main.php:105
 msgid "Access token %s does not match any stored token."
 msgstr ""
 
@@ -62,27 +74,31 @@ msgstr ""
 msgid "Secret"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:79
+#: ./templates/default/account/oauth2.tpl.php:76
+msgid "Public key"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:87
 msgid "Delete"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:79
+#: ./templates/default/account/oauth2.tpl.php:87
 msgid "Are you sure? This will delete this application."
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:103
+#: ./templates/default/account/oauth2.tpl.php:111
 msgid "Auth URL"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:115
+#: ./templates/default/account/oauth2.tpl.php:123
 msgid "Token URL"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:127
+#: ./templates/default/account/oauth2.tpl.php:135
 msgid "Connect URL"
 msgstr ""
 
-#: ./templates/default/account/oauth2.tpl.php:140
+#: ./templates/default/account/oauth2.tpl.php:148
 msgid "Owner Resource URL"
 msgstr ""
 
@@ -90,63 +106,67 @@ msgstr ""
 msgid "OAuth2 Applications"
 msgstr ""
 
-#: ./Pages/Token.php:22
+#: ./Pages/Token.php:25
 msgid "Required parameter grant_type is missing!"
 msgstr ""
 
-#: ./Pages/Token.php:34
+#: ./Pages/Token.php:37
 msgid "Required parameter refresh_token is missing!"
 msgstr ""
 
-#: ./Pages/Token.php:39
+#: ./Pages/Token.php:42
 msgid "Sorry, that refresh token appears to be invalid!"
 msgstr ""
 
-#: ./Pages/Token.php:46
+#: ./Pages/Token.php:49
 msgid "Invalid state given"
 msgstr ""
 
-#: ./Pages/Token.php:69
+#: ./Pages/Token.php:72
 msgid "Server problem, couldn't refresh token. Try again in a bit..."
 msgstr ""
 
-#: ./Pages/Token.php:80
+#: ./Pages/Token.php:83
 msgid "Required parameter client_id is missing!"
 msgstr ""
 
-#: ./Pages/Token.php:86
+#: ./Pages/Token.php:89
 msgid "I have no knowledge of the application identified by %s"
 msgstr ""
 
-#: ./Pages/Token.php:92
+#: ./Pages/Token.php:95
 msgid "Sorry, unknown or expired code!"
 msgstr ""
 
-#: ./Pages/Token.php:107
+#: ./Pages/Token.php:110
 msgid "Sorry, redirect_uri doesn't match the one given before!"
 msgstr ""
 
-#: ./Pages/Token.php:126
+#: ./Pages/Token.php:129
 msgid "Server problem, couldn't generate new tokens. Try again in a bit..."
 msgstr ""
 
-#: ./Pages/Authorisation.php:19
+#: ./Pages/PublicKey.php:24
+msgid "No public key could be found"
+msgstr ""
+
+#: ./Pages/Authorisation.php:22
 msgid "Required parameter response_type is missing!"
 msgstr ""
 
-#: ./Pages/Authorisation.php:25
+#: ./Pages/Authorisation.php:28
 msgid "Sorry, implicit grant is currently not supported."
 msgstr ""
 
-#: ./Pages/Authorisation.php:59
+#: ./Pages/Authorisation.php:62
 msgid "Sorry, this code has been seen before!"
 msgstr ""
 
-#: ./Pages/Authorisation.php:63
+#: ./Pages/Authorisation.php:66
 msgid "Bang, code incorrect"
 msgstr ""
 
-#: ./Pages/Connect.php:26
+#: ./Pages/Connect.php:30
 msgid "Could not load client associated with %s"
 msgstr ""
 
