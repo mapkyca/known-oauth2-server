@@ -28,6 +28,9 @@ namespace IdnoPlugins\OAuth2 {
             // Adding OAuth2 app page
             \Idno\Core\site()->routes()->addRoute('/account/oauth2/?', '\IdnoPlugins\OAuth2\Pages\Account\Applications');
             \Idno\Core\site()->template()->extendTemplate('account/menu/items', 'account/oauth2/menu');
+            
+            // Expose a well known
+            \Idno\Core\site()->routes()->addRoute('/.well-known/openid-configuration/?', Pages\WellKnown::class);
         }
 
         function registerEventHooks()
@@ -39,6 +42,38 @@ namespace IdnoPlugins\OAuth2 {
                 $event->setResponse($user);
 
             }, 0);
+        }
+        
+        /**
+         * Retrieve Well Known OpenID Connect information.
+         * @return array
+         */
+        public static function getWellKnown(): array {
+            return [
+                "issuer" => \Idno\Core\Idno::site()->config()->getDisplayURL(),
+                "authorization_endpoint" => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'oauth2/authorise/',
+                "token_endpoint" => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'oauth2/access_token/',
+                "userinfo_endpoint" => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'oauth2/owner/',
+                "end_session_endpoint" => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/logout/', 
+                
+                //"jwks_uri" => "",
+                "grant_types_supported" => [
+                    "authorization_code",
+                    "refresh_token",
+                ],
+                "response_types_supported" => [
+                    "code"
+                ],
+                "subject_types_supported" => [
+                    "public"
+                ],
+                "id_token_signing_alg_values_supported" => [
+                    "RS256"
+                ],
+//                "response_modes_supported" => [
+//                    "query"
+//                ]
+            ];
         }
         
         private static function getBearerToken(): ?string {
