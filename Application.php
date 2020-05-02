@@ -30,6 +30,31 @@ namespace IdnoPlugins\OAuth2 {
         }
 
         /**
+         * Get the public key
+         * @return string
+         */
+        public function getPublicKey():string {
+            return $this->publickey;
+        }
+        
+        /**
+         * Get the private key
+         * @return string
+         */
+        public function getPrivateKey():string {
+            return $this->privatekey;
+        }
+        
+        /**
+         * Generate a new public / private key pair suitable for asymetric OIDC tokens
+         */
+        protected function generateAsymetricKeypair() {
+            
+            // TODO
+            
+        }
+        
+        /**
          * Saves changes to this object based on user input
          * @return true|false
          */
