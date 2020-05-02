@@ -17,7 +17,7 @@ namespace IdnoPlugins\OAuth2\Pages {
                 throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("The Application for this client id could not be found"));
             }
 
-            $publickey = $client->getPublicKey();
+            $publickey = $object->getPublicKey();
             if (empty($publickey)) {
                 throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("No public key could be found"));
             }
