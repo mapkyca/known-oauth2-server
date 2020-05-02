@@ -17,7 +17,8 @@
         }
     ],
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+        "firebase/php-jwt": "^5.2"
     },
     "extra": {
         "installer-name": "OAuth2"
