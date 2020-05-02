@@ -97,7 +97,7 @@ namespace IdnoPlugins\OAuth2 {
                     }
                     
                     // Find Private key
-                    $privatekey = $client->getPublicKey();
+                    $privatekey = $client->getPrivateKey();
                     if (empty($privatekey)) {
                         throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("No private key could be found"));
                     }
