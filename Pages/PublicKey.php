@@ -9,6 +9,8 @@ namespace IdnoPlugins\OAuth2\Pages {
 
         function getContent() {
             
+            header('Content-Type: text/plain');
+            
             // Are we loading an entity?
             if (!empty($this->arguments)) {
                 $object = Application::getOne(['key' => $this->arguments[0]]);
