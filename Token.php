@@ -2,6 +2,8 @@
 
 namespace IdnoPlugins\OAuth2 {
 
+    use Firebase\JWT\JWT;
+    use Idno\Core\TokenProvider;
 
     class Token extends \Idno\Common\Entity
     {
@@ -47,7 +49,7 @@ namespace IdnoPlugins\OAuth2 {
         }
 
         function jsonSerialize()
-        {
+        {  
             // Code is only ever serialised as part of something else
             $return = [
             'access_token' => $this->access_token,
@@ -55,7 +57,56 @@ namespace IdnoPlugins\OAuth2 {
             'expires_in' => $this->expires_in,
             'token_Type' => $this->token_type
             ];
-
+            
+            // Return OIDC token of own if there's an owner TODO: - needs a public key generated
+            if (!empty($this->getOwner())) {
+                
+                // See if we've asked for an open ID token in scope
+                if (strpos($this->scope, 'openid') !== false) {
+                    
+                    $nonce = new TokenProvider();
+                    
+                    $oidc = [
+                        'iss' => \Idno\Core\Idno::site()->config()->getDisplayURL(), // Issuer site
+                        'sub' => $this->getOwnerID(), // Return the SUBJECT id
+                        'aud' => $this->key,    // Audience (client ID)
+                        'exp' => time() + $this->expires_in, // Expires in
+                        'iat' => time(), // Issue time
+                        'nonce' => $nonce->generateHexToken(4), // Add a nonce
+                    ];
+                    
+                    
+                    // Have we asked for email address?
+                    if (strpos($this->scope, 'email') !== false) {
+                        $oidc['email'] = $this->getOwner()->email;
+                    } 
+                    
+                    // Add some profile information if asked for
+                    if (strpos($this->scope, 'profile') !== false) {
+                        
+                        $oidc['preferred_username'] = $this->getOwner()->getHandle();
+                        $oidc['name'] = $this->getOwner()->getName();
+                        $oidc['picture'] = $this->getOwner()->getIcon();
+                        $oidc['website'] = $this->getOwner()->getURL();
+                    }
+                    
+                    // Find Private key
+                    $privatekey = \Idno\Core\Idno::site()->config()->oauth2Server['privatekey'];
+                    if (empty($privatekey)) {
+                        throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("No private key could be found"));
+                    }
+                    
+                    // Now generate a JWT
+                    $jwt = JWT::encode($oidc, $privatekey, 'RS256');
+                    if (empty($jwt)) {
+                        throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("There was a problem generating a OIDC token"));
+                    }
+                   
+                    $return['id_token'] = $jwt;
+                }
+               
+            }
+            
             if ($this->state) $return['state'] = $this->state;
             if ($this->scope) $return['scope'] = $this->scope;
 
