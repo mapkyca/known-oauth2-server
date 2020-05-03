@@ -88,6 +88,7 @@ namespace IdnoPlugins\OAuth2 {
                         $oidc['name'] = $this->getOwner()->getName();
                         $oidc['picture'] = $this->getOwner()->getIcon();
                         $oidc['profile'] = $this->getOwner()->getURL();
+                        $oidc['zoneinfo'] = $this->getOwner()->getTimezone();
                     }
                     
                     // Application
