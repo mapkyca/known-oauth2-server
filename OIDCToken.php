@@ -37,7 +37,10 @@ class OIDCToken {
             $oidc['name'] = $token->getOwner()->getName();
             $oidc['picture'] = $token->getOwner()->getIcon();
             $oidc['profile'] = $token->getOwner()->getURL();
-            $oidc['zoneinfo'] = $token->getOwner()->getTimezone();
+            
+            if ($tz = $token->getOwner()->getTimezone()) {
+                $oidc['zoneinfo'] = $tz;
+            }
         }
         
         return $oidc;
