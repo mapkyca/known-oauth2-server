@@ -10,6 +10,7 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
         
         $token = new \IdnoPlugins\OAuth2\Token();
         $token->setOwner($this->user());
+        $token->scope = 'openid email profile';
         $token->key = hash('sha256', mt_rand() . microtime(true));
         $application = \IdnoPlugins\OAuth2\Application::newApplication('test');
         
