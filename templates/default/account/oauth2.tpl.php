@@ -25,12 +25,12 @@
                     <label class="control-label" for="inputName"><?= \Idno\Core\Idno::site()->language()->_('Your application name'); ?></label>
                 </div>
 
-                <div class="col-md-4">
-                    <input type="text" id="inputName" placeholder="<?= \Idno\Core\Idno::site()->language()->_('New Application name'); ?>" name="name"
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="inputName" placeholder="<?= \Idno\Core\Idno::site()->language()->_('New Application name'); ?>" name="name"
                            value="" required>
                 </div>
-                <div class="col-md-5">
-                    <button type="submit" class="btn btn-primary btn-large"><?= \Idno\Core\Idno::site()->language()->_('Generate new keys...'); ?></button>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary pull-right"><?= \Idno\Core\Idno::site()->language()->_('Generate new keys...'); ?></button>
                 </div>
 
             </div>
