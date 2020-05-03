@@ -3,7 +3,6 @@
 namespace IdnoPlugins\OAuth2 {
 
     use Firebase\JWT\JWT;
-    use Idno\Core\TokenProvider;
 
     class Token extends \Idno\Common\Entity
     {
@@ -52,10 +51,10 @@ namespace IdnoPlugins\OAuth2 {
         {  
             // Code is only ever serialised as part of something else
             $return = [
-            'access_token' => $this->access_token,
-            'refresh_token' => $this->refresh_token,
-            'expires_in' => $this->expires_in,
-            'token_Type' => $this->token_type
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'expires_in' => $this->expires_in,
+                'token_Type' => $this->token_type
             ];
             
             // Return OIDC token of own if there's an owner TODO: - needs a public key generated
@@ -64,32 +63,8 @@ namespace IdnoPlugins\OAuth2 {
                 // See if we've asked for an open ID token in scope
                 if (strpos($this->scope, 'openid') !== false) {
                     
-                    $nonce = new TokenProvider();
-                    
-                    $oidc = [
-                        'iss' => \Idno\Core\Idno::site()->config()->getDisplayURL(), // Issuer site
-                        'sub' => $this->getOwnerID(), // Return the SUBJECT id
-                        'aud' => $this->key,    // Audience (client ID)
-                        'exp' => time() + $this->expires_in, // Expires in
-                        'iat' => time(), // Issue time
-                        'nonce' => $nonce->generateHexToken(4), // Add a nonce
-                    ];
-                    
-                    
-                    // Have we asked for email address?
-                    if (strpos($this->scope, 'email') !== false) {
-                        $oidc['email'] = $this->getOwner()->email;
-                    } 
-                    
-                    // Add some profile information if asked for
-                    if (strpos($this->scope, 'profile') !== false) {
-                        
-                        $oidc['preferred_username'] = $this->getOwner()->getHandle();
-                        $oidc['name'] = $this->getOwner()->getName();
-                        $oidc['picture'] = $this->getOwner()->getIcon();
-                        $oidc['profile'] = $this->getOwner()->getURL();
-                        $oidc['zoneinfo'] = $this->getOwner()->getTimezone();
-                    }
+                    // Generate a new OIDC token
+                    $oidc = OIDCToken::generate($this);
                     
                     // Application
                     $client = Application::getOne(['key' => $this->key]);
