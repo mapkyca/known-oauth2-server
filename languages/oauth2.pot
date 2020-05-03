@@ -1,28 +1,28 @@
-#: ./Token.php:96
+#: ./Token.php:72
 msgid "The Application for this client id could not be found"
 msgstr ""
 
-#: ./Token.php:102
+#: ./Token.php:78
 msgid "No private key could be found"
 msgstr ""
 
-#: ./Token.php:108
+#: ./Token.php:84
 msgid "There was a problem generating a OIDC token"
 msgstr ""
 
-#: ./Main.php:92
+#: ./Main.php:128
 msgid "Token scope doesn't match that which was previously granted!"
 msgstr ""
 
-#: ./Main.php:99
+#: ./Main.php:135
 msgid "Token user could not be retrieved."
 msgstr ""
 
-#: ./Main.php:102
+#: ./Main.php:138
 msgid "Access token %s has expired."
 msgstr ""
 
-#: ./Main.php:105
+#: ./Main.php:141
 msgid "Access token %s does not match any stored token."
 msgstr ""
 
@@ -158,11 +158,11 @@ msgstr ""
 msgid "Sorry, implicit grant is currently not supported."
 msgstr ""
 
-#: ./Pages/Authorisation.php:62
+#: ./Pages/Authorisation.php:63
 msgid "Sorry, this code has been seen before!"
 msgstr ""
 
-#: ./Pages/Authorisation.php:66
+#: ./Pages/Authorisation.php:67
 msgid "Bang, code incorrect"
 msgstr ""
 
