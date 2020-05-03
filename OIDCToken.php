@@ -17,7 +17,7 @@ class OIDCToken {
                     
         $oidc = [
             'iss' => \Idno\Core\Idno::site()->config()->getDisplayURL(), // Issuer site
-            'sub' => $token->getOwnerID(), // Return the SUBJECT id
+            'sub' => $token->getOwner()->getID(), // Return the SUBJECT id
             'aud' => $token->key,    // Audience (client ID)
             'exp' => time() + $token->expires_in, // Expires in
             'iat' => time(), // Issue time
