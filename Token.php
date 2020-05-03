@@ -87,7 +87,7 @@ namespace IdnoPlugins\OAuth2 {
                         $oidc['preferred_username'] = $this->getOwner()->getHandle();
                         $oidc['name'] = $this->getOwner()->getName();
                         $oidc['picture'] = $this->getOwner()->getIcon();
-                        $oidc['website'] = $this->getOwner()->getURL();
+                        $oidc['profile'] = $this->getOwner()->getURL();
                     }
                     
                     // Application
