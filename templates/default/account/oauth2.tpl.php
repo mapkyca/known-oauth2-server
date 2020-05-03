@@ -60,7 +60,7 @@
 
                         <div class="col-md-2">
                             <p>
-                                <strong><?= $app->getTitle(); ?></strong>
+                                <strong><a href="<?= $app->getUrl(); ?>" target="_blank"><?= $app->getTitle(); ?></a></strong>
                             </p>
                         </div>
                         <div class="col-md-7">

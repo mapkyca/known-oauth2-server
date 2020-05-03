@@ -7,6 +7,13 @@ namespace IdnoPlugins\OAuth2 {
     {
 
         /**
+         * Return URL of app
+         */
+        public function getURL() {
+            return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'oauth2/' . $this->key . '/';
+        }
+        
+        /**
          * Generate a new keypair
          */
         public function generateKeypair()
@@ -87,6 +94,26 @@ namespace IdnoPlugins\OAuth2 {
 
             $this->setAccess('PUBLIC');
             return $this->save();
+        }
+        
+        function jsonSerialize()
+        {
+            $json = [
+                'title' => $this->getTitle(),
+                'generated' => $this->getCreatedTime(),
+                'client_id' => $this->key,
+                
+            ];
+            
+            // If we're logged in and we own this application, we can add some other stuff
+            if ($this->canEdit()) {
+                $json['secret'] = $this->secret;
+            }
+            
+            $pk = $this->getPublicKey();
+            $json['public_key'] = $pk;
+            
+            return $json;
         }
 
     }
