@@ -14,9 +14,14 @@ class OIDCToken {
     public static function generate(Token $token) : array {
         
         $nonce = new TokenProvider();
-                    
+        
+        $application = Application::getOne($token->key);
+        if (empty($application)) {
+            throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("The Application for this token could not be found"));
+        }
+        
         $oidc = [
-            'iss' => \Idno\Core\Idno::site()->config()->getDisplayURL(), // Issuer site
+            'iss' => $application->getURL(), // Issuer site
             'sub' => $token->getOwner()->getID(), // Return the SUBJECT id
             'aud' => $token->key,    // Audience (client ID)
             'exp' => time() + $token->expires_in, // Expires in
