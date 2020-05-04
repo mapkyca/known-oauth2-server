@@ -25,6 +25,7 @@ Currently the plugin supports:
 * [x] grant_type=refresh_token
 * [x] state parameter validation
 * [x] scope support
+* [x] OpenID Connect
 
 Example usage
 -------------
@@ -72,6 +73,14 @@ Of course you can still, and the OAuth2 server doesn't replace that option. In m
 1) There are many existing libraries for OAuth2 in pretty much every language.
 2) With OAuth2 you give different credentials to each application. This means that if you no longer want to allow access from application A, but still want to keep B and C, you can revoke A's tokens specifically.
 
+OpenID Connect
+--------------
+
+If you include the scope `openid`, on success the server will return an OpenID Connect signed JWT in the `id_token` field. 
+
+This token will include basic information about the authenticated user. If you also ask for `email` and `profile` scopes as well, you'll get some extra profile information back (email, full name, picture url, username, etc). 
+
+You can verify this token against the public key for the application (available from `https://yourserver.com/oauth2/CLIENTID/key`)
 
 See
 ---
