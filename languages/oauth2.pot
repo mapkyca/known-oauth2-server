@@ -10,19 +10,19 @@ msgstr ""
 msgid "There was a problem generating a OIDC token"
 msgstr ""
 
-#: ./Main.php:128
+#: ./Main.php:151
 msgid "Token scope doesn't match that which was previously granted!"
 msgstr ""
 
-#: ./Main.php:135
+#: ./Main.php:159
 msgid "Token user could not be retrieved."
 msgstr ""
 
-#: ./Main.php:138
+#: ./Main.php:162
 msgid "Access token %s has expired."
 msgstr ""
 
-#: ./Main.php:141
+#: ./Main.php:165
 msgid "Access token %s does not match any stored token."
 msgstr ""
 
@@ -180,5 +180,9 @@ msgstr ""
 
 #: ./Pages/Account/Applications.php:41
 msgid "%s was removed."
+msgstr ""
+
+#: ./OIDCToken.php:22
+msgid "The Application for this token could not be found"
 msgstr ""
 
