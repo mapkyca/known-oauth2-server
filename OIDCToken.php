@@ -101,7 +101,7 @@ class OIDCToken {
      */
     public static function isJWT(string $token) : bool {
         
-        list($header, $payload, $signature) = explode(".", $jwt);
+        list($header, $payload, $signature) = explode(".", $token);
     
         if (empty($header) || !json_decode(Webservice::base64UrlDecode($header))) {
           return false;

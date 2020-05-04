@@ -46,7 +46,7 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
         $this->assertTrue(OIDCToken::isJWT($jwt));
         
         // Validate
-        $decoded = OIDCToken::decode($jwt, $publickey); //JWT::decode($jwt, $pubkey, ['RS256']);
+        $decoded = OIDCToken::decode($jwt, $pubkey); //JWT::decode($jwt, $pubkey, ['RS256']);
         
         $this->assertNotEmpty($decoded);
         
