@@ -1,6 +1,8 @@
 <?php
 
 namespace IdnoPlugins\OAuth2 {
+    
+    use \Idno\Entities\User;
 
     class Main extends \Idno\Common\Plugin
     {
@@ -39,8 +41,10 @@ namespace IdnoPlugins\OAuth2 {
 
             // Authenticate!
             \Idno\Core\site()->events()->addListener('user/auth/request', function(\Idno\Core\Event $event) {
-                if ($user = \IdnoPlugins\OAuth2\Main::authenticate())
-                $event->setResponse($user);
+                
+                if ($user = \IdnoPlugins\OAuth2\Main::authenticate()) {
+                    $event->setResponse($user);
+                }
 
             }, 0);
         }
@@ -106,8 +110,46 @@ namespace IdnoPlugins\OAuth2 {
             if ($access_token) {
 
                 \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
+                
+                // Validate bearer if it's a JWT/OIDC
+                if (OIDCToken::isJWT($access_token)) {
+                
+                    // Preliminary decode - peek at the OIDC, to see if we can find the client
+                    $unsafejwt = OIDCToken::decodeNoVerify($access_token);
+                    
+                    if (!empty($unsafejwt->aud)) {
+                        
+                        // Get the issuing application
+                        $application = Application::getOne(['key' => $unsafejwt->aud]);
+                        if (!empty($application) && !empty($application->getPublicKey())) {
+                        
+                            // Now, lets validate.
+                            $safejwt = OIDCToken::decode($access_token, $application->getPublicKey());
+                            
+                            // Ok, we got here, so the OIDC token is valid, lets find a user
+                            if (!empty($safejwt)) {
+                                
+                                $id = $safejwt->sub;
+                                $owner = User::getByID($id);
+                                
+                                if ($owner) {
+                                    
+                                    \Idno\Core\site()->session()->refreshSessionUser($owner); // Log user on, but avoid triggering hook and going into an infinite loop!
 
-                // Get token
+                                    return $owner;
+                                    
+                                }
+                                
+                            }
+                        
+                        }
+                        
+                    }
+                    
+                }
+                
+
+                // Traditional token
                 if ($token = Token::getOne(['access_token' => $access_token])) {
 
                     // Check expiry
@@ -124,9 +166,10 @@ namespace IdnoPlugins\OAuth2 {
                             $_SESSION['oauth2_token'] = $token;
 
                             // Double check scope
-                            if ($owner->oauth2[$token->key]['scope'] != $token->scope)
-                            throw new \Exception(\Idno\Core\Idno::site()->language()->_("Token scope doesn't match that which was previously granted!"));
-
+                            if ($owner->oauth2[$token->key]['scope'] != $token->scope) {
+                                throw new \Exception(\Idno\Core\Idno::site()->language()->_("Token scope doesn't match that which was previously granted!"));
+                            }
+                                
                             return $owner;
 
                         } else {
