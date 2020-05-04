@@ -3,6 +3,7 @@
 namespace IdnoPlugins\OAuth2\Tests;
 
 use Firebase\JWT\JWT;
+use IdnoPlugins\OAuth2\OIDCToken;
 
 class OIDCTokenTest extends \Tests\KnownTestCase {
     
@@ -42,9 +43,10 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
         $jwt = JWT::encode($oidc, $prikey, 'RS256');
         
         $this->assertNotEmpty($jwt);
+        $this->assertTrue(OIDCToken::isJWT($jwt));
         
         // Validate
-        $decoded = JWT::decode($jwt, $pubkey, ['RS256']);
+        $decoded = OIDCToken::decode($jwt, $publickey); //JWT::decode($jwt, $pubkey, ['RS256']);
         
         $this->assertNotEmpty($decoded);
         
