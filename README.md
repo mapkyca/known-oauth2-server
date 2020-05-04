@@ -25,6 +25,7 @@ Currently the plugin supports:
 * [x] grant_type=refresh_token
 * [x] state parameter validation
 * [x] scope support
+* [x] OpenID Connect
 
 Example usage
 -------------
