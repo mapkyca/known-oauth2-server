@@ -81,30 +81,11 @@ namespace IdnoPlugins\OAuth2 {
             ];
         }
         
-        private static function getBearerToken(): ?string {
-            
-            $headers = null;
-            $serverheaders = \Idno\Common\Page::getallheaders();
-            
-            if (isset($serverheaders['Authorization']))
-                $headers = trim($serverheaders["Authorization"]);
-            else if (isset($serverheaders['HTTP_AUTHORIZATION']))
-                $headers = trim($serverheaders["HTTP_AUTHORIZATION"]);
-            
-            if (!empty($headers)) {
-                if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                    return trim($matches[1], '\'"');
-                }
-            }
-                
-            return null;
-        }
-        
         public static function authenticate()
         {
             $access_token = \Idno\Core\Input::getInput('access_token');
             if (!$access_token)
-                $access_token = self::getBearerToken ();
+                $access_token = \Idno\Common\Page::getBearerToken ();
             
             // Have we been provided with an access token
             if ($access_token) {
