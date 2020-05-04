@@ -61,15 +61,37 @@ class OIDCToken {
      */
     public static function decode(string $token, string $publickey) : ? object {
         
-        list($header, $payload, $signature) = explode(".", $jwt);
+        list($header, $payload, $signature) = explode(".", $token);
                     
         $plainHeader = Webservice::base64UrlDecode($header);
         $jsonHeader = json_decode($plainHeader, true);
 
         $algo = ['RS256', $header['alg']];
 
-        return JWT::decode($token, $publickey, array_unique($algo));
+        $result = JWT::decode($token, $publickey, array_unique($algo));
+        if ($result) {
+            return $result;
+        }
         
+        return null;
+    }
+    
+    /**
+     * Decode the JWT payload WITHOUT verifying the signature.
+     * @param string $token
+     * @return object|null
+     */
+    public static function decodeNoVerify(string $token) : ? object {
+        
+        list($header, $payload, $signature) = explode(".", $token);
+        
+        $decoded = json_decode(Webservice::base64UrlDecode($payload));
+        
+        if ($decoded) {
+            return $decoded;
+        }
+        
+        return null;
     }
     
     /**
