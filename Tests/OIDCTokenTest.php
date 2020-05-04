@@ -27,7 +27,7 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
         ];
         
         
-    }
+    } 
     
     /**
      * Test to see if we have a token that can be signed and validated
