@@ -66,7 +66,7 @@ class OIDCToken {
         $plainHeader = Webservice::base64UrlDecode($header);
         $jsonHeader = json_decode($plainHeader, true);
 
-        $algo = ['RS256', $header['alg']];
+        $algo = ['RS256', $jsonHeader['alg']];
 
         $result = JWT::decode($token, $publickey, array_unique($algo));
         if ($result) {
