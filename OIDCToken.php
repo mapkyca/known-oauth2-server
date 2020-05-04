@@ -3,6 +3,8 @@
 namespace IdnoPlugins\OAuth2;
 
 use Idno\Core\TokenProvider;
+use Idno\Core\Webservice;
+use Firebase\JWT\JWT;
 
 class OIDCToken {
     
@@ -49,5 +51,48 @@ class OIDCToken {
         }
         
         return $oidc;
+    }
+    
+    /**
+     * Decode a JWT into a usable object.
+     * @param string $token
+     * @param string $publickey
+     * @return object|null
+     */
+    public static function decode(string $token, string $publickey) : ? object {
+        
+        list($header, $payload, $signature) = explode(".", $jwt);
+                    
+        $plainHeader = Webservice::base64UrlDecode($header);
+        $jsonHeader = json_decode($plainHeader, true);
+
+        $algo = ['RS256', $header['alg']];
+
+        return JWT::decode($token, $publickey, array_unique($algo));
+        
+    }
+    
+    /**
+     * Is the token a JWT?
+     * @param string $token
+     * @return bool
+     */
+    public static function isJWT(string $token) : bool {
+        
+        list($header, $payload, $signature) = explode(".", $jwt);
+    
+        if (empty($header) || !json_decode(Webservice::base64UrlDecode($header))) {
+          return false;
+        }
+
+        if (empty($payload) || !json_decode(Webservice::base64UrlDecode($payload))) {
+          return false;
+        }
+
+        if (empty($signature)) {
+          return false;
+        }
+
+        return true;
     }
 }
