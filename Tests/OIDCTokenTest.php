@@ -8,11 +8,15 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
     
     public function oidcTokenProvider() {
         
+        $application = \IdnoPlugins\OAuth2\Application::newApplication('test application');
+        $application->save();
+        
         $token = new \IdnoPlugins\OAuth2\Token();
         $token->setOwner($this->user());
         $token->scope = 'openid email profile';
-        $token->key = hash('sha256', mt_rand() . microtime(true));
-        $application = \IdnoPlugins\OAuth2\Application::newApplication('test');
+        $token->key = $application->key;
+        
+        $application->delete(); // fudge it for the persistence check
         
         return [
             'Test OIDC' => [
