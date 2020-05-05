@@ -17,7 +17,7 @@ class OIDCToken {
         
         $nonce = new TokenProvider();
         
-        $application = Application::getOne($token->key);
+        $application = Application::getOne(['key' => $token->key]);
         if (empty($application)) {
             throw new OAuth2Exception(\Idno\Core\Idno::site()->language()->_("The Application for this token could not be found"));
         }
