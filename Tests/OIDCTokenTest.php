@@ -17,13 +17,17 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
         $token->scope = 'openid email profile';
         $token->key = $application->key;
         
+        $oidc = \IdnoPlugins\OAuth2\OIDCToken::generate($token);
+        $pub =$application->getPublicKey();
+        $pri = $application->getPrivateKey();
+        
         $application->delete(); // fudge it for the persistence check
         
         return [
             'Test OIDC' => [
-                \IdnoPlugins\OAuth2\OIDCToken::generate($token),
-                $application->getPublicKey(),
-                $application->getPrivateKey()
+                $oidc,
+                $pub,
+                $pri
             ]
         ];
         
