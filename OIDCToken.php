@@ -9,7 +9,7 @@ use Firebase\JWT\JWT;
 class OIDCToken {
     
     // JWT Token leeway
-    private $leeway = 10;
+    private static $leeway = 10;
     
     /**
      * When given a token, generate an OIDC token from it
@@ -71,7 +71,7 @@ class OIDCToken {
 
         $algo = ['RS256', $jsonHeader['alg']];
 
-        JWT::$leeway = $this->leeway;
+        JWT::$leeway = self::$leeway;
         $result = JWT::decode($token, $publickey, array_unique($algo));
         if ($result) {
             return $result;
