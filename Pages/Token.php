@@ -149,6 +149,13 @@ namespace IdnoPlugins\OAuth2\Pages {
         {
             $this->getContent();
         }
+        
+        function post() {
+            
+            $this->postContent();
+            
+            http_response_code($this->response);
+        }
 
     }
 
