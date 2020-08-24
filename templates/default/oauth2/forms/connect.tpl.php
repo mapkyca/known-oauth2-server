@@ -10,7 +10,7 @@
             <div class="explanation">
         <p>
             <?php if ($vars['scope']) { ?>
-                <?= \Idno\Core\Idno::site()->language()->_('Application has asked to connect to your account with the following privileges %s, do you want to allow it?', [$vars['scope']]); ?>
+                <?= \Idno\Core\Idno::site()->language()->_('Application has asked to connect to your account with the following privileges "%s", do you want to allow it?', [$vars['scope']]); ?>
             <?php } else { ?>
                 <?= \Idno\Core\Idno::site()->language()->_('Application has asked to connect to your account, do you want to allow it?'); ?>
             <?php } ?>
