@@ -73,6 +73,51 @@ namespace IdnoPlugins\OAuth2\Pages {
                             }
 
                             break;
+                        
+                        // Support password grant
+                        case 'password':
+                            
+                            if (!$client_id)
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Required parameter client_id is missing!"), 'invalid_request', $state);
+                            }
+
+                            // Check Application
+                            if (!\IdnoPlugins\OAuth2\Application::getOne(['key' => $client_id]))
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("I have no knowledge of the application identified by %s", [$client_id]), 'unauthorized_client', $state);
+                            }
+                            
+                            $user = \Idno\Entities\User::getByHandle($this->getInput('username'));
+                            if (empty($user)) {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Requested user could not be found"), 'access_denied', $state);
+                            }
+                            
+                            if (!$user->checkPassword($this->getInput('password'))) {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Invalid password for user "), 'access_denied', $state);
+                            }
+                            
+                            // OK so far, so generate new token
+                            $token = new \IdnoPlugins\OAuth2\Token();
+
+                            // Add state and scope variables
+                            $token->state = $state;
+                            $token->scope = $scope;
+
+                            // Bind to a client ID!
+                            $token->key = $client_id;
+
+                            // Set owner of token
+                            $token->setOwner($user);
+
+                            if (!$token->save())
+                            {
+                                throw new \IdnoPlugins\OAuth2\OAuth2Exception(\Idno\Core\Idno::site()->language()->_("Server problem, couldn't generate new tokens. Try again in a bit..."), 'invalid_grant', $state);
+                            }
+
+                            echo json_encode($token);
+                            
+                            break;
 
                         // Basic authorisation
                         case 'authorization_code':

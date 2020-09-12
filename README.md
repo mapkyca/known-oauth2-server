@@ -23,6 +23,7 @@ Currently the plugin supports:
 * [x] response_type=code
 * [x] grant_type=authorization_code
 * [x] grant_type=refresh_token
+* [x] grant_type=password
 * [x] state parameter validation
 * [x] scope support
 * [x] OpenID Connect
