@@ -10,7 +10,7 @@ class OIDCTokenTest extends \Tests\KnownTestCase {
     public function oidcTokenProvider() {
         
         $application = \IdnoPlugins\OAuth2\Application::newApplication('test application');
-        $application->save();
+        $application->save(true);
         
         $token = new \IdnoPlugins\OAuth2\Token();
         $token->setOwner($this->user());
