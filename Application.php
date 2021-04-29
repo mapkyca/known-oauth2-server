@@ -95,7 +95,12 @@ namespace IdnoPlugins\OAuth2 {
             $this->setAccess('PUBLIC');
             return $this->save();
         }
-        
+
+        function save($overrideAccess = true)
+        {
+            return parent::save($overrideAccess);
+        }
+
         function jsonSerialize()
         {
             $json = [
